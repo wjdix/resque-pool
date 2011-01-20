@@ -15,6 +15,9 @@ namespace :resque do
   desc "Launch a pool of resque workers"
   task :pool => %w[resque:setup resque:pool:setup] do
     Resque::Pool.run
+    if ENV['SCHEDULER']
+      Rake::Task['resque:scheduler']
+    end
   end
 
 end
